@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import BarChart from "./Components/BarChart";
+import { UserData } from "./Data";
+import { useState } from "react";
+import LineChart from "./Components/LineChart";
+import PieChart from './Components/PieChart';
+const App = () => {
+  const [UserInfo, SetUserData] = useState({
+    labels: UserData.map((data) => data.year),
+    datasets: [
+      {
+        label: "Users Gained",
+        data: UserData.map((data) => data.userGain),
+        backgroundColor: ["yellow", "pink", "orange", "purple", "blue"],
+        borderColor: "grey",
+        borderWidth: 2,
+      },
+      {
+        label: "Users Lost",
+        data: UserData.map((data) => data.userLost),
+        backgroundColor: "black",
+      },
+    ],
+  });
 
-function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ width: 800 }}>
+      <BarChart chartData={UserInfo} />;
+      <LineChart chartData={UserInfo} />
+      <div style={{width : 500}}>
+
+      <PieChart chartData={UserInfo} />
+      </div>
     </div>
   );
-}
+};
 
 export default App;
